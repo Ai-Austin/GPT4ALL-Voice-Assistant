@@ -19,7 +19,6 @@ listening_for_wake_word = True
 source = sr.Microphone() 
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
-
 if sys.platform != 'darwin':
     import pyttsx3
     engine = pyttsx3.init() 

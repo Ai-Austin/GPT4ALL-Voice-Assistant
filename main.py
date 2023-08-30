@@ -1,6 +1,5 @@
 from os import system
 import speech_recognition as sr
-from playsound import playsound
 from gpt4all import GPT4All
 import sys
 import whisper

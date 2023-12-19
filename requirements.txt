@@ -1,5 +1,5 @@
-whisper==1.9.2
-SpeechRecognition==3.10.0
+whisper
+SpeechRecognition
 gpt4all==1.0.5
 pyaudio==0.2.13
 pyttsx3==2.90

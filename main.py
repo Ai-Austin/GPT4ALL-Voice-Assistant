@@ -13,7 +13,7 @@ model_complete_filepath="/Users/YOUR_USERNAME_HERE/Library/Application Support/n
 model_path_directory, model_filename_complete = os.path.split(model_complete_filepath)
 model_filename, model_extension = os.path.splitext(model_filename_complete)
 
-device_for_running_LLM=input("Which device would you like to use for running the LLM?\nPlease type your selection without the quotes and press ENTER.\nSelections available: \"gpu\" and \"cpu\"\n\nYou've selected: ")
+device_for_running_LLM=input("Which device would you like to use for running the LLM?\nPlease type your selection without the quotes and press ENTER.\nSelections available: \"gpu\", \"cpu\", \"intel\", and \"amd\"\n\nYou've selected: ")
 
 model = GPT4All(model_filename, model_path=model_path_directory, allow_download=False, device=device_for_running_LLM)
 r = sr.Recognizer()

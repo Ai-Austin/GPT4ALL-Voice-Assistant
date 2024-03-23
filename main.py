@@ -22,12 +22,12 @@ base_model_path = os.path.expanduser('~/.cache/whisper/base.pt')
 tiny_model = whisper.load_model(tiny_model_path)
 base_model = whisper.load_model(base_model_path)
 listening_for_wake_word = True
-source = sr.Microphone() 
+source = sr.Microphone()
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
 if sys.platform != 'darwin':
     import pyttsx3
-    engine = pyttsx3.init() 
+    engine = pyttsx3.init()
 
 def speak(text):
     if sys.platform == 'darwin':
@@ -83,7 +83,7 @@ def start_listening():
     print('\nSay', wake_word, 'to wake me up. \n')
     r.listen_in_background(source, callback)
     while True:
-        time.sleep(1) 
+        time.sleep(1)
 
 if __name__ == '__main__':
-    start_listening() 
+    start_listening()

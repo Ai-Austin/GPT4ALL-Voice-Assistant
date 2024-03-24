@@ -1,6 +1,6 @@
 whisper
 SpeechRecognition
-gpt4all==1.0.5
+gpt4all==2.2.1.post1
 pyaudio==0.2.13
 pyttsx3==2.90
 soundfile==0.12.1

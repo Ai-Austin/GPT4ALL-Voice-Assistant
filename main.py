@@ -8,19 +8,26 @@ import time
 import os
 
 wake_word = 'jarvis'
-model = GPT4All("/Users/YOUR_USERNAME_HERE/Library/Application Support/nomic.ai/GPT4All/ggml-model-gpt4all-falcon-q4_0.bin", allow_download=False)
+
+model_complete_filepath="/Users/YOUR_USERNAME_HERE/Library/Application Support/nomic.ai/GPT4All/ggml-model-gpt4all-falcon-q4_0.gguf"
+model_path_directory, model_filename_complete = os.path.split(model_complete_filepath)
+model_filename, model_extension = os.path.splitext(model_filename_complete)
+
+device_for_running_LLM=input("Which device would you like to use for running the LLM?\nPlease type your selection without the quotes and press ENTER.\nSelections available: \"gpu\", \"cpu\", \"intel\", and \"amd\"\n\nYou've selected: ")
+
+model = GPT4All(model_filename, model_path=model_path_directory, allow_download=False, device=device_for_running_LLM)
 r = sr.Recognizer()
 tiny_model_path = os.path.expanduser('~/.cache/whisper/tiny.pt')
 base_model_path = os.path.expanduser('~/.cache/whisper/base.pt')
 tiny_model = whisper.load_model(tiny_model_path)
 base_model = whisper.load_model(base_model_path)
 listening_for_wake_word = True
-source = sr.Microphone() 
+source = sr.Microphone()
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
 if sys.platform != 'darwin':
     import pyttsx3
-    engine = pyttsx3.init() 
+    engine = pyttsx3.init()
 
 def speak(text):
     if sys.platform == 'darwin':
@@ -76,7 +83,7 @@ def start_listening():
     print('\nSay', wake_word, 'to wake me up. \n')
     r.listen_in_background(source, callback)
     while True:
-        time.sleep(1) 
+        time.sleep(1)
 
 if __name__ == '__main__':
-    start_listening() 
+    start_listening()

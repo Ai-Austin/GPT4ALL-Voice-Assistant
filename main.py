@@ -9,7 +9,7 @@ import os
 
 wake_word = 'jarvis'
 
-model_complete_filepath="/Users/YOUR_USERNAME_HERE/Library/Application Support/nomic.ai/GPT4All/ggml-model-gpt4all-falcon-q4_0.gguf"
+model_complete_filepath='/Users/YOUR_USERNAME_HERE/Library/Application Support/nomic.ai/GPT4All/ggml-model-gpt4all-falcon-q4_0.gguf'
 model_path_directory, model_filename_complete = os.path.split(model_complete_filepath)
 model_filename, model_extension = os.path.splitext(model_filename_complete)
 
@@ -31,7 +31,7 @@ if sys.platform != 'darwin':
 
 def speak(text):
     if sys.platform == 'darwin':
-        ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?!-_$:+-/ ")
+        ALLOWED_CHARS = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?!-_$:+-/ ')
         clean_text = ''.join(c for c in text if c in ALLOWED_CHARS)
         system(f"say '{clean_text}'")
     else:
@@ -40,25 +40,25 @@ def speak(text):
 
 def listen_for_wake_word(audio):
     global listening_for_wake_word
-    with open("wake_detect.wav", "wb") as f:
+    with open('wake_detect.wav', 'wb') as f:
         f.write(audio.get_wav_data())
     result = tiny_model.transcribe('wake_detect.wav')
     text_input = result['text']
     if wake_word in text_input.lower().strip():
-        print("Wake word detected. Please speak your prompt to GPT4All.")
+        print('Wake word detected. Please speak your prompt to GPT4All.')
         speak('Listening')
         listening_for_wake_word = False
 
 def prompt_gpt(audio):
     global listening_for_wake_word
     try:
-        with open("prompt.wav", "wb") as f:
+        with open('prompt.wav', 'wb') as f:
             f.write(audio.get_wav_data())
         result = base_model.transcribe('prompt.wav')
         prompt_text = result['text']
         if len(prompt_text.strip()) == 0:
-            print("Empty prompt. Please speak again.")
-            speak("Empty prompt. Please speak again.")
+            print('Empty prompt. Please speak again.')
+            speak('Empty prompt. Please speak again.')
             listening_for_wake_word = True
         else:
             print('User: ' + prompt_text)

@@ -68,7 +68,7 @@ def prompt_gpt(audio):
             print('\nSay', wake_word, 'to wake me up. \n')
             listening_for_wake_word = True
     except Exception as e:
-        print("Prompt error: ", e)
+        print('Prompt error: ', e)
 
 def callback(recognizer, audio):
     global listening_for_wake_word

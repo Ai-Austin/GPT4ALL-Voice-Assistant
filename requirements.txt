@@ -4,5 +4,3 @@ gpt4all==2.2.1.post1
 pyaudio==0.2.13
 pyttsx3==2.90
 soundfile==0.12.1
-piper-tts
-onnxruntime-gpu

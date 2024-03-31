@@ -9,7 +9,8 @@ import os
 
 wake_word = 'jarvis'
 
-model_complete_filepath='/Users/YOUR_USERNAME_HERE/Library/Application Support/nomic.ai/GPT4All/ggml-model-gpt4all-falcon-q4_0.gguf'
+model_complete_filepath='/PATH_TO_YOUR_DESIRED_GPT4ALL_MODEL/ggml-model-gpt4all-falcon-q4_0.gguf'
+tts_model_filepath="/PATH_TO_THE_PIPER-TTS_VOICES/en_US-ryan-high.onnx"
 model_path_directory, model_filename_complete = os.path.split(model_complete_filepath)
 model_filename, model_extension = os.path.splitext(model_filename_complete)
 
@@ -25,18 +26,13 @@ listening_for_wake_word = True
 source = sr.Microphone()
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
-if sys.platform != 'darwin':
-    import pyttsx3
-    engine = pyttsx3.init()
-
 def speak(text):
-    if sys.platform == 'darwin':
-        ALLOWED_CHARS = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?!-_$:+-/ ')
-        clean_text = ''.join(c for c in text if c in ALLOWED_CHARS)
-        system(f"say '{clean_text}'")
-    else:
-        engine.say(text)
-        engine.runAndWait()
+  if sys.platform == 'darwin':
+    ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?!-_$:+-/ ")
+    clean_text = ''.join(c for c in text if c in ALLOWED_CHARS)
+    system(f"say '{clean_text}'")
+  else:
+    os.system(f"echo \"{text}\" | piper-tts --model \"{tts_model_filepath}\" --output-raw | aplay -r 22050 -f S16_LE -t raw -")
 
 def listen_for_wake_word(audio):
     global listening_for_wake_word
